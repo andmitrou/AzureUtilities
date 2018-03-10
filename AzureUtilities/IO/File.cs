@@ -14,7 +14,7 @@ namespace AzureUtilities.IO
         }
 
         public static void UploadAsTable()
-        {
+        {//zx
 
         }
     }
