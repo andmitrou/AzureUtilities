@@ -13,7 +13,7 @@ namespace AzureUtilities.IO
            
         }
 
-        public static UploadAsTable()
+        public static void UploadAsTable()
         {
 
         }
