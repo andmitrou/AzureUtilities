@@ -10,7 +10,12 @@ namespace AzureUtilities.IO
     {
         public static void UploadAsBlob(string filename, string blobContainer, string blobFileName)
         {
-          
+           
+        }
+
+        public static UploadAsTable()
+        {
+
         }
     }
 }
