@@ -8,9 +8,9 @@ namespace AzureUtilities.IO
 {
    public static class File
     {
-        public static void Upload()
+        public static void UploadAsBlob(string filename, string blobContainer, string blobFileName)
         {
-           //sd
+          
         }
     }
 }
