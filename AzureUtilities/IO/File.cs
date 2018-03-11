@@ -45,5 +45,12 @@ namespace AzureUtilities.IO
             blockblob.UploadFromFile(localfilename, FileMode.Open);
         }
 
+        public void DeleteFile(string blobContainer, string blobFile)
+        {
+            CloudBlobContainer container = client.GetContainerReference(blobContainer);
+            CloudBlockBlob _blockBlob = container.GetBlockBlobReference(blobFile);
+            _blockBlob.Delete();
+        }
+
     }
 }
