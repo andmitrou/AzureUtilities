@@ -23,13 +23,22 @@ namespace AzureUtilities.IO
 
             client = _storageAccount.CreateCloudBlobClient();
         }
-
+       /// <summary>
+       /// Upload File to Azure using same filename as input
+       /// </summary>
+       /// <param name="localfilename"></param>
+       /// <param name="blobContainer"></param>
         public void UploadAsBlob(string localfilename, string blobContainer)
         {
             var blobFileName = Path.GetFileName(localfilename);
             UploadAsBlob(localfilename, blobContainer, blobFileName);
         }
-
+        /// <summary>
+        /// Upload File to Azure using with using different filename as input
+        /// </summary>
+        /// <param name="localfilename"></param>
+        /// <param name="blobContainer"></param>
+        /// <param name="newBlobFileName"></param>
         public void UploadAsBlob(string localfilename, string blobContainer, string newBlobFileName)
         {
             if (System.IO.File.Exists(localfilename))
