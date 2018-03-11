@@ -56,24 +56,27 @@ namespace AzureUtilities.IO
 
         public void DeleteFile(string blobContainer, string blobFile)
         {
-            CloudBlobContainer container = client.GetContainerReference(blobContainer);
-            CloudBlockBlob _blockBlob = container.GetBlockBlobReference(blobFile);
-            _blockBlob.Delete();
+            try
+            {
+                var _blockBlob = GetBlobFile(blobContainer, blobFile);
+                _blockBlob.Delete();
+            }
+            catch { throw; }
         }
 
         public void DownloadFile(string blobContainer, string blobFile, string destFile)
         {
-            CloudBlobContainer container = client.GetContainerReference(blobContainer);
-
-            CloudBlockBlob _blockBlob = container.GetBlockBlobReference(blobFile);
-
-            _blockBlob.DownloadToFile(destFile, FileMode.Create);
+            try
+            {
+                var _blockBlob = GetBlobFile(blobContainer, blobFile);
+                _blockBlob.DownloadToFile(destFile, FileMode.Create);
+            }
+            catch { throw; }
         }
 
         public FileMetadata GetFileProperties(string blobContainer, string blobFile)
         {
-            CloudBlobContainer container = client.GetContainerReference(blobContainer);
-            CloudBlockBlob _blockBlob = container.GetBlockBlobReference(blobFile);
+            var _blockBlob = GetBlobFile(blobContainer, blobFile);
             _blockBlob.FetchAttributes();
 
             var metadata = new FileMetadata();
@@ -82,6 +85,13 @@ namespace AzureUtilities.IO
             metadata.CustomMetadata = _blockBlob.Metadata;
 
             return metadata;
+        }
+
+        private CloudBlockBlob GetBlobFile(string blobContainer, string blobFile)
+        {
+            CloudBlobContainer container = client.GetContainerReference(blobContainer);
+            CloudBlockBlob _blockBlob = container.GetBlockBlobReference(blobFile);
+            return _blockBlob;
         }
     }
 }
