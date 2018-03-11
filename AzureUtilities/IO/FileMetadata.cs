@@ -10,15 +10,14 @@ namespace AzureUtilities
     {
         public DateTimeOffset? LastModifiedOffset { get; set; }
         public string ETag { get; set; }
-        public IDictionary<string,string> CustomMetadata { get; set; }
+        public IDictionary<string, string> CustomMetadata { get; set; }
         public DateTime? LastModified
         {
             get
             {
-                if (LastModifiedOffset.GetValueOrDefault() != null)
-                    return LastModifiedOffset.Value.DateTime;
-                else
-                    return null;
+                return LastModifiedOffset != null ?
+                    LastModifiedOffset.Value.DateTime :
+                    (DateTime?)null;               
             }
         }
     }
