@@ -52,5 +52,13 @@ namespace AzureUtilities.IO
             _blockBlob.Delete();
         }
 
+        public void DownloadFile(string blobContainer,string blobFile,string destFile)
+        {
+            CloudBlobContainer container = client.GetContainerReference(blobContainer);
+
+            CloudBlockBlob _blockBlob = container.GetBlockBlobReference(blobFile);
+         
+            _blockBlob.DownloadToFile(destFile,FileMode.Create);
+        }
     }
 }
