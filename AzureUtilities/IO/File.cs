@@ -45,7 +45,7 @@ namespace AzureUtilities.IO
             blockblob.UploadFromFile(localfilename, FileMode.Open);
         }
 
-        public void DeleteFile(string t)
+        public void DeleteFile()
         {
 
         }
