@@ -23,11 +23,11 @@ namespace AzureUtilities.IO
 
             client = _storageAccount.CreateCloudBlobClient();
         }
-       /// <summary>
-       /// Upload File to Azure using same filename as input
-       /// </summary>
-       /// <param name="localfilename"></param>
-       /// <param name="blobContainer"></param>
+        /// <summary>
+        /// Upload File to Azure using same filename as input
+        /// </summary>
+        /// <param name="localfilename"></param>
+        /// <param name="blobContainer"></param>
         public void UploadAsBlob(string localfilename, string blobContainer)
         {
             var blobFileName = Path.GetFileName(localfilename);
@@ -61,13 +61,27 @@ namespace AzureUtilities.IO
             _blockBlob.Delete();
         }
 
-        public void DownloadFile(string blobContainer,string blobFile,string destFile)
+        public void DownloadFile(string blobContainer, string blobFile, string destFile)
         {
             CloudBlobContainer container = client.GetContainerReference(blobContainer);
 
             CloudBlockBlob _blockBlob = container.GetBlockBlobReference(blobFile);
-         
-            _blockBlob.DownloadToFile(destFile,FileMode.Create);
+
+            _blockBlob.DownloadToFile(destFile, FileMode.Create);
+        }
+
+        public FileMetadata GetFileProperties(string blobContainer, string blobFile)
+        {
+            CloudBlobContainer container = client.GetContainerReference(blobContainer);
+            CloudBlockBlob _blockBlob = container.GetBlockBlobReference(blobFile);
+            _blockBlob.FetchAttributes();
+
+            var metadata = new FileMetadata();
+            metadata.LastModifiedOffset = _blockBlob.Properties.LastModified;
+            metadata.ETag = _blockBlob.Properties.ETag;
+            metadata.CustomMetadata = _blockBlob.Metadata;
+
+            return metadata;
         }
     }
 }
